@@ -1,11 +1,10 @@
-package entities;
+package Clases;
 
 public class Servicio {
 	private int idServicio;
 	private String denominacion;
 	private String descripcion;
-	private double costo;
-	
+	private float costo;
 	public int getIdServicio() {
 		return idServicio;
 	}
@@ -24,12 +23,10 @@ public class Servicio {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public double getCosto() {
+	public float getCosto() {
 		return costo;
 	}
-	public void setCosto(double costo) {
+	public void setCosto(float costo) {
 		this.costo = costo;
 	}
-	
-	
 }
