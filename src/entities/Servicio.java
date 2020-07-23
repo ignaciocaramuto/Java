@@ -1,4 +1,4 @@
-package Clases;
+package entities;
 
 public class Servicio {
 	private int idServicio;

@@ -1,5 +1,5 @@
 package ui;
-import conecciones.*;
+import connections.*;
 public class principal {
 
 	public static void main(String[] args) {

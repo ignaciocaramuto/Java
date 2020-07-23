@@ -1,11 +1,11 @@
-package conecciones;
+package connections;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import conecciones.ConeccionDbHotel;
-import Clases.*;
+import connections.ConeccionDbHotel;
+import entities.*;
 
 
 public class ConeccionServicio {
