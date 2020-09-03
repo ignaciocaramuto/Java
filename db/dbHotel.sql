@@ -41,7 +41,7 @@ CREATE TABLE `cliente` (
   `tipo_Tarjeta_Credito` varchar(255) NOT NULL,
   `nro_Tarjeta_Credito` varchar(255) NOT NULL,
   PRIMARY KEY (`id_Cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `estadia` (
     REFERENCES hotel.cliente (id_Cliente)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION) 
-    ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+    ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `tipo_habitacion` (
   capacidad_Personas INT NOT NULL,
   precio_Por_Dia FLOAT NOT NULL,
   PRIMARY KEY (id_Tipo_Habitacion))
-  ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
