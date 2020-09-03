@@ -2,20 +2,20 @@ package entities;
 
 import java.util.Date;
 
-public abstract class Cliente {
+public class Cliente {
 	private int idCliente;
 	private String tipoDoc;
 	private String numDoc;
 	private String apellido;
 	private String nombre;
 	private String sexo;
-	private Date fechaNacimiento;
+	private java.sql.Date fechaNacimiento;
 	private String mail;
-	private int telefono;
+	private String telefono;
 	private String usuario;
 	private String contraseña;
 	private String tipoTarjetaCredito;
-	private int numTarjetaCredito;
+	private String numTarjetaCredito;
 	
 	public int getIdCliente() {
 		return idCliente;
@@ -53,11 +53,11 @@ public abstract class Cliente {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	public Date getFechaNacimiento() {
+	public java.sql.Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(java.sql.Date date) {
+		this.fechaNacimiento = date;
 	}
 	public String getMail() {
 		return mail;
@@ -65,11 +65,11 @@ public abstract class Cliente {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
+	public void setTelefono(String string) {
+		this.telefono = string;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -89,14 +89,17 @@ public abstract class Cliente {
 	public void setTipoTarjetaCredito(String tipoTarjetaCredito) {
 		this.tipoTarjetaCredito = tipoTarjetaCredito;
 	}
-	public int getNumTarjetaCredito() {
+	public String getNumTarjetaCredito() {
 		return numTarjetaCredito;
 	}
-	public void setNumTarjetaCredito(int numTarjetaCredito) {
+	public void setNumTarjetaCredito(String numTarjetaCredito) {
 		this.numTarjetaCredito = numTarjetaCredito;
 	}
 	
-	
+	public String toString() {
+		return "\nPersona [id=" + idCliente + ", tipoDoc=" + tipoDoc + ", nroDoc=" + numDoc + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", email=" + mail + ", tel=" + telefono + "]";
+	}
 
 
 }

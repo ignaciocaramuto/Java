@@ -1,11 +1,9 @@
 package ui;
-import connections.*;
-public class principal {
 
+public class Principal {
+	
 	public static void main(String[] args) {
-		ConeccionServicio con=new ConeccionServicio();
-		con.add();
-
+		Menu m=new Menu();
+		m.start();
 	}
-
 }
