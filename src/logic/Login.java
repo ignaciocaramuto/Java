@@ -6,9 +6,11 @@ import entities.*;
 
 public class Login {
 	private DataCliente dc;
+	private DataTipoHabitacion dth;
 	
 	public Login() {
 		dc=new DataCliente();
+		dth=new DataTipoHabitacion();
 	}
 	
 	public Cliente validate(Cliente c) {
@@ -23,4 +25,10 @@ public class Login {
 	public void addClient(Cliente cli) {
 		dc.add(cli);
 	}
+
+	public void addTipohabitacion(Tipo_Habitacion thab) {
+		dth.add(thab);
+	}
+	
+	
 }

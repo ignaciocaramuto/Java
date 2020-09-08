@@ -51,8 +51,8 @@ public class Menu {
 		case "2":
 			addCliente();
 			break;
-		case "search":
-			System.out.println();
+		case "3":
+			addTipo_Habitacion();
 			break;
 		case "new":
 			
@@ -73,7 +73,7 @@ public class Menu {
 		System.out.println("Ingrese el comando según la opción que desee realizar");
 		System.out.println("1\t\tlistar todos los clientes");
 		System.out.println("2\t\tABMC cliente");
-		System.out.println("3\t\tABMC Tipo de habitacion"); //puede devolver varios
+		System.out.println("3\t\tABMC Tipo de habitacion");
 		System.out.println("4\t\tABMC Habitacion");
 		System.out.println("5\t\tABMC Servicio");
 		System.out.println("6\t\tRealizar reserva de habitacion");
@@ -105,15 +105,14 @@ public class Menu {
 		c.setSexo(s.nextLine());
 		System.out.print("Fecha de nacimiento(yyyy-mm-dd): ");
 		String date = s.nextLine();
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date myDate = null;
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
+		Date myDate = null; //crea un objeto myDate de tipo Date
 		try {
-			myDate = formatter.parse(date);
+			myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
 		c.setFechaNacimiento(sqlDate);
 		System.out.print("Tipo tarjeta de credito: ");
 		c.setTipoTarjetaCredito(s.nextLine());
@@ -123,6 +122,20 @@ public class Menu {
 		//r.addRol(s.nextLine());
 		ctrlLogin.addClient(c);
 		//ctrlLogin.setRoles(p);
+	}
+	
+	private void addTipo_Habitacion() {
+		System.out.println();
+		Tipo_Habitacion th = new Tipo_Habitacion();
+		System.out.print("Ingrese denominacion: ");
+		th.setDenominacion(s.nextLine());
+		System.out.print("Ingrese descripcion: ");
+		th.setDescripcion(s.nextLine());
+		System.out.print("Ingrese capacidad maxima de personas: ");
+		th.setCapacidad_Personas(s.nextInt());
+		System.out.print("Ingrese precio por dia: ");
+		th.setPrecio_Por_Dia(s.nextFloat());
+		ctrlLogin.addTipohabitacion(th);
 	}
 
 }
