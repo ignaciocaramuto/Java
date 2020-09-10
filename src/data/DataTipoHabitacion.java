@@ -42,13 +42,37 @@ public class DataTipoHabitacion {
             	e.printStackTrace();
             }
 		}
-		
-		
-		
-		
-		
 
+	}
+
+	public Tipo_Habitacion validate(Tipo_Habitacion th) {
+		Tipo_Habitacion thab = null;
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select id_Tipo_Habitacion from tipo_habitacion where denominacion=?"
+					);
+			
+			stmt.setString(1,th.getDenominacion());
+			keyResultSet=stmt.executeQuery();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				thab = new Tipo_Habitacion();
+				thab.setId_Tipo_Habitacion(keyResultSet.getInt("id_Tipo_Habitacion"));
+			}
 		
+	}  catch (SQLException e) {
+        e.printStackTrace();
+	} finally {
+        try {
+            if(keyResultSet!=null)keyResultSet.close();
+            if(stmt!=null)stmt.close();
+            DbConnector.getInstancia().releaseConn();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+	}
+		return thab;
 		
 	}
 }	

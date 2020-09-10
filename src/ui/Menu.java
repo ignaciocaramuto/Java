@@ -38,7 +38,7 @@ public class Menu {
 		System.out.print("password: ");
 		c.setContraseña(s.nextLine());
 		
-		c=ctrlLogin.validate(c);
+		c=ctrlLogin.validateCliente(c);
 		
 		return c;
 	}
@@ -54,8 +54,8 @@ public class Menu {
 		case "3":
 			addTipo_Habitacion();
 			break;
-		case "new":
-			
+		case "4":
+			 addHabitacion();
 	
 			break;
 		case "edit":
@@ -74,7 +74,7 @@ public class Menu {
 		System.out.println("1\t\tlistar todos los clientes");
 		System.out.println("2\t\tABMC cliente");
 		System.out.println("3\t\tABMC Tipo de habitacion");
-		System.out.println("4\t\tABMC Habitacion");
+		System.out.println("4\t\tABMC Habitacion"); //Tiene que pertenecer a un tipo de habitacion
 		System.out.println("5\t\tABMC Servicio");
 		System.out.println("6\t\tRealizar reserva de habitacion");
 		System.out.println();
@@ -137,5 +137,26 @@ public class Menu {
 		th.setPrecio_Por_Dia(s.nextFloat());
 		ctrlLogin.addTipohabitacion(th);
 	}
+	
+	private Tipo_Habitacion validateTipoHabitacion(Tipo_Habitacion th) {
+		
+		return ctrlLogin.validateTipo_Habitacion(th);
+	}  
 
+	private void addHabitacion() {
+		System.out.println();
+		Tipo_Habitacion th = new Tipo_Habitacion();
+		Habitacion h = new Habitacion();
+		System.out.print("Ingrese denominacion del tipo de habitacion: ");
+		th.setDenominacion(s.nextLine());
+		Tipo_Habitacion thab = validateTipoHabitacion(th);
+		if (thab!=null) {
+			System.out.println("Ingrese denominacion de habitacion: ");
+			h.setDenominacion(s.nextLine());
+			//Integer id = (int) thab;
+			//h.setId_Tipo_Habitacion(thab);
+			ctrlLogin.addHabitacion(h);
+		}
+	}
+	
 }
