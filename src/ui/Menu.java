@@ -31,15 +31,28 @@ public class Menu {
 	
 	private Cliente login() {
 		Cliente c=new Cliente();
+		boolean validate = false;
+		while (!validate) {
 		
-		System.out.print("Email: ");
-		c.setMail(s.nextLine());
+		try {
+			
+			
+			System.out.print("Email: ");
+			c.setMail(s.nextLine());
 
-		System.out.print("password: ");
-		c.setContraseña(s.nextLine());
-		
-		c=ctrlLogin.validate(c);
-		
+			System.out.print("password: ");
+			c.setContraseña(s.nextLine());
+			
+			c=ctrlLogin.validate(c);
+			String name=c.getNombre();
+			//Para que me tire una excepcion si esta vacio(ver si hay mejor forma)
+			validate = true;
+			
+		} catch (Exception e) {
+			System.out.println("Email/contraseña incorrecto, intente de nuevo");
+			c=new Cliente();
+		}
+		}
 		return c;
 	}
 	
