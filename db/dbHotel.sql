@@ -41,7 +41,7 @@ CREATE TABLE `cliente` (
   `tipo_Tarjeta_Credito` varchar(255) NOT NULL,
   `nro_Tarjeta_Credito` varchar(255) NOT NULL,
   PRIMARY KEY (`id_Cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `estadia` (
     REFERENCES hotel.cliente (id_Cliente)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION) 
-    ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+    ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `tipo_habitacion` (
   capacidad_Personas INT NOT NULL,
   precio_Por_Dia FLOAT NOT NULL,
   PRIMARY KEY (id_Tipo_Habitacion))
-  ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,15 +100,16 @@ DROP TABLE IF EXISTS `habitacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `habitacion` (
-  nro_Habitacion INT NOT NULL,
-  denominacion VARCHAR(45) NOT NULL,
+  nro_Habitacion INT NOT NULL AUTO_INCREMENT,
   id_Tipo_Habitacion INT NOT NULL,
   PRIMARY KEY (nro_Habitacion),
   CONSTRAINT tipo_Habitacion
     FOREIGN KEY (id_Tipo_Habitacion)
     REFERENCES hotel.tipo_habitacion (id_Tipo_Habitacion)
     ON DELETE RESTRICT
-    ON UPDATE RESTRICT);
+    ON UPDATE RESTRICT)
+    ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
     
 --
 -- Table structure for table `servicio`

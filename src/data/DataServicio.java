@@ -4,26 +4,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import entities.Habitacion;
+import entities.Servicio;
 
-public class DataHabitacion {
+public class DataServicio {
 	
-	public void add(Habitacion hab) {
+	public void add(Servicio s) {
+		
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"insert into habitacion(id_Tipo_Habitacion) values(?)",
-					PreparedStatement.RETURN_GENERATED_KEYS
-					);
-			
-			stmt.setInt(1, hab.getId_Tipo_Habitacion());
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into servicio(denominacion, descripcion, costo) values(?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, s.getDenominacion());
+			stmt.setString(2, s.getDescripcion());
+			stmt.setDouble(3, s.getCosto());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
-                hab.setId_Tipo_Habitacion(keyResultSet.getInt(1));
+                s.setIdServicio(keyResultSet.getInt(1));
             }
+
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -36,6 +40,6 @@ public class DataHabitacion {
             	e.printStackTrace();
             }
 		}
-	}
+	} 
 
 }

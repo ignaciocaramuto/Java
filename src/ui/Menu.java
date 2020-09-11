@@ -58,10 +58,11 @@ public class Menu {
 			 addHabitacion();
 	
 			break;
-		case "edit":
+		case "5":
+			addServicio();
 			
 			break;
-		case "delete":
+		case "6":
 			
 			break;
 		default:
@@ -150,13 +151,24 @@ public class Menu {
 		System.out.print("Ingrese denominacion del tipo de habitacion: ");
 		th.setDenominacion(s.nextLine());
 		Tipo_Habitacion thab = validateTipoHabitacion(th);
+		//System.out.print(thab.getId_Tipo_Habitacion());
 		if (thab!=null) {
-			System.out.println("Ingrese denominacion de habitacion: ");
-			h.setDenominacion(s.nextLine());
-			//Integer id = (int) thab;
-			//h.setId_Tipo_Habitacion(thab);
-			ctrlLogin.addHabitacion(h);
+			h.setId_Tipo_Habitacion(thab.getId_Tipo_Habitacion());
+			//System.out.print(h.getId_Tipo_Habitacion());
+			ctrlLogin.add_Habitacion(h);
 		}
+	}
+	
+	private void addServicio() {
+		System.out.println();
+		Servicio ser = new Servicio();
+		System.out.print("Ingrese denominacion del servicio: ");
+		ser.setDenominacion(s.nextLine());
+		System.out.print("Ingrese descripcion del servicio: ");
+		ser.setDescripcion(s.nextLine());
+		System.out.print("Ingrese costo del servicio: ");
+		ser.setCosto(s.nextDouble());
+		ctrlLogin.add_Servicio(ser);
 	}
 	
 }

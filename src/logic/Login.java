@@ -8,11 +8,13 @@ public class Login {
 	private DataCliente dc;
 	private DataTipoHabitacion dth;
 	private DataHabitacion dh;
+	private DataServicio ds;
 	
 	public Login() {
 		dc=new DataCliente();
 		dth=new DataTipoHabitacion();
 		dh=new DataHabitacion();
+		ds=new DataServicio();
 	}
 	
 	public Cliente validateCliente(Cliente c) {
@@ -37,8 +39,12 @@ public class Login {
 		return dth.validate(th);
 	}
 
-	public void addHabitacion(Habitacion h) {
+	public void add_Habitacion(Habitacion h) {
 		dh.add(h);
+	}
+	
+	public void add_Servicio(Servicio s) {
+		ds.add(s);
 	}
 	
 	
