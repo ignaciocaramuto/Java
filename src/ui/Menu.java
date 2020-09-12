@@ -57,31 +57,62 @@ public class Menu {
 	}
 	
 	private void executeCommand(String command) {
+		String option;
 		switch (command) {
 		case "1":
 			System.out.println(ctrlLogin.getAll());
 			break;
 		case "2":
-			addCliente();
+			option=subMenu("cliente");
+			executeABMCClient(option);
+			
 			break;
 		case "3":
+			option=subMenu("tipo de habitacion");
 			addTipo_Habitacion();
+			//executeABMCTipoHabitacion(option);
 			break;
-		case "new":
-			
-	
+		case "4":
+			option=subMenu("habitacion");
+			//executeABMCHabitacion(option);
 			break;
-		case "edit":
-			
+		case "5":
+			option=subMenu("servicio");
+			//executeABMCServicio(option);
 			break;
-		case "delete":
-			
+		case "6":
+			//RealizarReserva
 			break;
 		default:
 			break;
 		}
 	}
+	private String subMenu(String option) {
+		System.out.println("1\t\tAgregar "+option);
+		System.out.println("2\t\tEliminar "+option);
+		System.out.println("3\t\tModificar "+option);
+		System.out.println("4\t\tC "+option);
+		return(s.nextLine());
+	}
+	private void executeABMCClient(String option) {
+		switch (option) {
+		case "1":
+			addCliente();
+			break;
+		case "2":
+		//	deleteCliente();
+			break;
+		case "3":
+		//modifyCliente();	
+			break;
+		case "4":
+		//loqueseacCliente();
 	
+			break;
+		default:
+			break;
+		}
+	}
 	private String getCommand() {
 		System.out.println("Ingrese el comando según la opción que desee realizar");
 		System.out.println("1\t\tlistar todos los clientes");
@@ -94,7 +125,7 @@ public class Menu {
 		System.out.print("comando: ");
 		return s.nextLine();
 	}
-	
+	//de aca para abajo capaz iria mejor en logica
 	private void addCliente() {
 		System.out.println();
 		Cliente c=new Cliente();
