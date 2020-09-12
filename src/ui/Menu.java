@@ -64,7 +64,7 @@ public class Menu {
 			break;
 		case "2":
 			option=subMenu("cliente");
-			executeABMCClient(option);
+			executeABMCCliente(option);
 			
 			break;
 		case "3":
@@ -94,7 +94,7 @@ public class Menu {
 		System.out.println("4\t\tC "+option);
 		return(s.nextLine());
 	}
-	private void executeABMCClient(String option) {
+	private void executeABMCCliente(String option) {
 		switch (option) {
 		case "1":
 			addCliente();
