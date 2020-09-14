@@ -38,11 +38,12 @@ public class Menu {
 			
 			
 			System.out.print("Email: ");
-			c.setMail(s.nextLine());
+			//c.setMail(s.nextLine());
+			c.setMail("jp@gmail.com");
 
 			System.out.print("password: ");
-			c.setContraseña(s.nextLine());
-			
+			//c.setContraseña(s.nextLine());
+			c.setContraseña("jperez");
 			c=ctrlLogin.validate(c);
 			String name=c.getNombre();
 			//Para que me tire una excepcion si esta vacio(ver si hay mejor forma)
@@ -100,7 +101,7 @@ public class Menu {
 			addCliente();
 			break;
 		case "2":
-		//	deleteCliente();
+		deleteCliente();
 			break;
 		case "3":
 		//modifyCliente();	
@@ -166,6 +167,30 @@ public class Menu {
 		//r.addRol(s.nextLine());
 		ctrlLogin.addClient(c);
 		//ctrlLogin.setRoles(p);
+	}
+	private void deleteCliente() {
+		boolean bandNoSeTrajoCliente=true;
+		Cliente c=new Cliente();
+		while (bandNoSeTrajoCliente){
+		try {
+			System.out.println("Ingrese el Nro de Documento del cliente que desea eliminar");
+			
+			c=ctrlLogin.getOne(s.nextLine());
+			System.out.println("Eliminar a "+c.getNombre()+" "+c.getApellido()+"\n\n\n1-Si\n2-No");
+			String option=s.nextLine();
+			bandNoSeTrajoCliente=false;
+			if (option.equals("1")) {
+				ctrlLogin.deleteClient(c);
+				System.out.println("El cliente "+c.getNombre()+" "+c.getApellido()+" fue eliminado con exito");
+			} else {
+				System.out.println("El cliente "+c.getNombre()+" "+c.getApellido()+" sigue en el sistema");
+			}
+		
+			} catch (NullPointerException e) {
+				System.out.println("No se encontro ningun cliente con ese dni\n");
+			}
+		}
+		
 	}
 	
 	private void addTipo_Habitacion() {
