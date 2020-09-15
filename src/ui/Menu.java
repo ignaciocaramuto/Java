@@ -104,7 +104,7 @@ public class Menu {
 		deleteCliente();
 			break;
 		case "3":
-		//modifyCliente();	
+		modifyCliente();	
 			break;
 		case "4":
 		//loqueseacCliente();
@@ -126,7 +126,11 @@ public class Menu {
 		System.out.print("comando: ");
 		return s.nextLine();
 	}
-	//de aca para abajo capaz iria mejor en logica
+	
+	
+	
+	
+	
 	private void addCliente() {
 		System.out.println();
 		Cliente c=new Cliente();
@@ -168,6 +172,104 @@ public class Menu {
 		ctrlLogin.addClient(c);
 		//ctrlLogin.setRoles(p);
 	}
+	private void modifyCliente() {
+		boolean bandNoSeTrajoCliente=true;
+		Cliente c=new Cliente();
+		while (bandNoSeTrajoCliente){
+		try {
+			System.out.println("Ingrese el Nro de Documento del cliente que desea modificar");
+			
+			c=ctrlLogin.getOne(s.nextLine());
+			boolean bandSeguirModificando=true;
+			while(bandSeguirModificando) {
+			System.out.println("Que desea modificar a "+c.getNombre()+" "+c.getApellido());
+			System.out.print("1-Tipo doc ");
+
+			System.out.print("2-Nro doc ");
+
+			System.out.print("3-Nombre ");
+
+			System.out.print("4-Apellido ");
+
+			System.out.print("5-Email ");
+
+			System.out.print("6-Password ");
+
+			System.out.print("7-Telefono ");
+
+			System.out.print("8-Sexo ");
+
+			System.out.print("9-Fecha de nacimiento(yyyy-mm-dd) ");
+			
+			String option=s.nextLine();
+			switch (option) {
+			case "1":
+			
+				System.out.print("Ingrese Tipo doc: ");
+				c.setTipoDoc(s.nextLine());
+				break;
+			case "2":
+				System.out.print("Ingrese Nro doc: ");
+				c.setNumDoc(s.nextLine());
+				break;
+			case "3":
+				System.out.print("Ingrese Nombre: ");
+				c.setNombre(s.nextLine());
+				break;
+			case "4":
+				System.out.print("Ingrese Apellido: ");
+				c.setApellido(s.nextLine());
+				break;
+			case "5":
+				System.out.print("Ingrese Email: ");
+				c.setMail(s.nextLine());
+				break;
+			case "6":
+				System.out.print("Ingrese Password: ");
+				c.setContraseña(s.nextLine());
+				break;
+			case "7":
+				System.out.print("Ingrese Telefono: ");
+				c.setTelefono(s.nextLine());
+				break;
+			case "8":
+				System.out.print("Ingrese Sexo: ");
+				c.setSexo(s.nextLine());
+				break;
+			case "9":
+				System.out.print("Ingrese echa de nacimiento(yyyy-mm-dd): ");
+				String date = s.nextLine();
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
+				Date myDate = null; //crea un objeto myDate de tipo Date
+				try {
+					myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				java.sql.Date sqlDate = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
+				c.setFechaNacimiento(sqlDate);
+				break;
+			default:
+				System.out.println("Ingrese una opcion valida");
+			}
+			System.out.println("¡Desea seguir modificando?(si/no)");
+			String op=s.nextLine();
+			if(op.equals("no")){
+				bandSeguirModificando=false;
+			}
+			}
+		//meter funcion de modificar de ctrLogin
+			System.out.println(c);
+			bandNoSeTrajoCliente=false;
+			} catch (NullPointerException e) {
+				System.out.println("No se encontro ningun cliente con ese dni\n");
+			}
+		
+		}
+	}
+		
+	
+	
 	private void deleteCliente() {
 		boolean bandNoSeTrajoCliente=true;
 		Cliente c=new Cliente();
