@@ -44,6 +44,36 @@ public class DataTipoHabitacion {
 		}
 
 	}
+	
+	public void update(Tipo_Habitacion th) {
+		
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"update tipo_habitacion set denominacion=?, descripcion=?, capacidad_Personas=?, precio_Por_Dia=? where id_Tipo_Habitacion=?"
+					);
+			stmt.setString(1, th.getDenominacion());
+			stmt.setString(2, th.getDescripcion());
+			stmt.setInt(3, th.getCapacidad_Personas());
+			stmt.setFloat(4, th.getPrecio_Por_Dia());
+			stmt.setInt(5, th.getId_Tipo_Habitacion());
+			stmt.executeUpdate();
+		
+	}  catch (SQLException e) {
+		System.out.print("Clase DataTipoHabitacion metodo update");
+        e.printStackTrace();
+	} finally {
+        try {
+            if(keyResultSet!=null)keyResultSet.close();
+            if(stmt!=null)stmt.close();
+            DbConnector.getInstancia().releaseConn();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+	}
+	}
+	
 
 	public Tipo_Habitacion validate(Tipo_Habitacion th) {
 		Tipo_Habitacion thab = null;

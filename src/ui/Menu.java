@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Scanner;
+
 import entities.*;
 import logic.Login;
 
@@ -63,6 +63,7 @@ public class Menu {
 			
 			break;
 		case "6":
+			//reservaHabitacion();
 			
 			break;
 		default:
@@ -81,6 +82,17 @@ public class Menu {
 		System.out.println();
 		System.out.print("comando: ");
 		return s.nextLine();
+	}
+	
+	private Date convertDate(String date) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
+		Date myDate = null; //crea un objeto myDate de tipo Date
+		try {
+			myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return myDate;
 	}
 	
 	private void addCliente() {
@@ -106,13 +118,7 @@ public class Menu {
 		c.setSexo(s.nextLine());
 		System.out.print("Fecha de nacimiento(yyyy-mm-dd): ");
 		String date = s.nextLine();
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
-		Date myDate = null; //crea un objeto myDate de tipo Date
-		try {
-			myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		Date myDate = convertDate(date);
 		java.sql.Date sqlDate = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
 		c.setFechaNacimiento(sqlDate);
 		System.out.print("Tipo tarjeta de credito: ");
@@ -137,6 +143,23 @@ public class Menu {
 		System.out.print("Ingrese precio por dia: ");
 		th.setPrecio_Por_Dia(s.nextFloat());
 		ctrlLogin.addTipohabitacion(th);
+	}
+	
+	private void updateTipoHabitacion() {
+		System.out.println();
+		Tipo_Habitacion th = new Tipo_Habitacion();
+		System.out.println("Ingrese id del tipo de habitacion a editar: ");
+		th.setId_Tipo_Habitacion(s.nextInt());
+		System.out.println("Ingrese denominacion del tipo de habitacion: ");
+		s.nextLine();
+		th.setDenominacion(s.nextLine());
+		System.out.println("Ingrese descripcion del tipo de habitacion: ");
+		th.setDescripcion(s.nextLine());
+		System.out.println("Ingrese cantidad de personas del tipo de habitacion: ");
+		th.setCapacidad_Personas(s.nextInt());
+		System.out.println("Ingrese precio por dia del tipo de habitacion: ");
+		th.setPrecio_Por_Dia(s.nextFloat());
+		ctrlLogin.updateTipoHabitacion(th);
 	}
 	
 	private Tipo_Habitacion validateTipoHabitacion(Tipo_Habitacion th) {
@@ -171,4 +194,41 @@ public class Menu {
 		ctrlLogin.add_Servicio(ser);
 	}
 	
+	/*private void reservaHabitacion() {
+		System.out.println();
+		Estadia es = new Estadia();
+		Tipo_Habitacion  th = new Tipo_Habitacion();
+		Habitacion h = new Habitacion();
+		System.out.print("Ingrese fecha desde: ");
+		String date;
+		Date today = Calendar.getInstance().getTime();
+		Date myDate = Calendar.getInstance().getTime(); //crea este objeto para entrar al do, luego se modifca dentro del mismo
+		do { 
+			date=s.nextLine();
+			myDate = convertDate(date); //metodo para convertir la fecha al formato "yyyy-mm-dd"
+		}while(myDate.compareTo(today) < 0); //valida que no se ingrese una fecha anterior a hoy
+		
+		java.sql.Date sqlDate = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
+		es.setFechaIngreso(sqlDate);
+		System.out.print("Ingrese fecha hasta: ");
+		String date2;
+		Date myDate2 = Calendar.getInstance().getTime();
+		do { 
+			date2=s.nextLine();
+			myDate2 = convertDate(date2); //metodo para convertir la fecha al formato "yyyy-mm-dd"
+		}while((myDate2.compareTo(today) < 0) && (myDate2.compareTo(myDate) <= 0)); //valida que no se ingrese una fecha anterior a hoy y que la fecha de egreso no sea menor o igual que la fecha de ingreso
+		
+		java.sql.Date sqlDate2 = new java.sql.Date(myDate.getTime());
+		es.setFechaEgreso(sqlDate2);
+		System.out.print("Ingrese tipo de habitacion que desea reservar: ");
+		th.setDenominacion(s.nextLine());
+		Tipo_Habitacion thab = validateTipoHabitacion(th);
+		if(thab!=null) {
+			h.setId_Tipo_Habitacion(thab.getId_Tipo_Habitacion());
+			Habitacion habi = ctrlLogin.buscarHabitaciones(h); //metodo para encontrar todas las habitaciones que tengan el id_tipo_habitacion buscado
+		}
+		
+		
+		}
+	*/
 }

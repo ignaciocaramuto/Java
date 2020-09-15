@@ -47,5 +47,9 @@ public class Login {
 		ds.add(s);
 	}
 	
+	public void updateTipoHabitacion(Tipo_Habitacion th) {
+		dth.update(th);
+	}
+	
 	
 }

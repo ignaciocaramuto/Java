@@ -2,7 +2,7 @@ package entities;
 
 import java.util.Date;
 
-public abstract class Estadia {
+public class Estadia {
 
 	private int idEstadia;
 	private Date fechaIngreso;
