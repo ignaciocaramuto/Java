@@ -36,6 +36,9 @@ public class Login {
 	public void addTipohabitacion(Tipo_Habitacion thab) {
 		dth.add(thab);
 	}
-	
+	public void modifyClient(Cliente c) {
+		
+		
+	}
 	
 }

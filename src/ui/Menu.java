@@ -258,7 +258,8 @@ public class Menu {
 				bandSeguirModificando=false;
 			}
 			}
-		//meter funcion de modificar de ctrLogin
+		ctrlLogin.modifyClient(c);
+		System.out.println("Cliente modificado con exito");
 			System.out.println(c);
 			bandNoSeTrajoCliente=false;
 			} catch (NullPointerException e) {

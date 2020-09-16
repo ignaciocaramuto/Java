@@ -168,6 +168,50 @@ public class DataCliente {
             }
 		}
     }
+	public void modify(Cliente c) {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"UPDATE `hotel`.`cliente` SET `tipo_doc` = ?, `nro_doc` = ?, `nombre` = ?, `apellido` = ?, `email` = ?, `password` = ?, `telefono` = ?, `sexo` = ?, `fecha_Nacimiento` = ?, `tipo_Tarjeta_Credito` = ?, `nro_Tarjeta_Credito` = ? WHERE (`id_Cliente` = ?);",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, c.getTipoDoc());
+			stmt.setString(2, c.getNumDoc());
+			stmt.setString(3, c.getNombre());
+			stmt.setString(4, c.getApellido());
+			stmt.setString(5, c.getMail());
+			stmt.setString(6, c.getContraseña());
+			stmt.setString(7, c.getTelefono());
+			stmt.setString(8, c.getSexo());
+			stmt.setDate(9, c.getFechaNacimiento());
+			stmt.setString(10, c.getTipoTarjetaCredito());
+			stmt.setString(11, c.getNumTarjetaCredito());
+			stmt.setInt(12, c.getIdCliente());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+                c.setIdCliente(keyResultSet.getInt(1));
+            }
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+
+		
+	}
 	public void delete(Cliente c){
 		
 		PreparedStatement stmt=null;
