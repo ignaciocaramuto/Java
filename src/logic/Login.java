@@ -37,6 +37,14 @@ public class Login {
 	public void addTipohabitacion(Tipo_Habitacion thab) {
 		dth.add(thab);
 	}
+	
+	public void updateTipoHabitacion(Tipo_Habitacion th) {
+		dth.update(th);
+	}
+	
+	public void deleteTipohabitacion(Tipo_Habitacion th) {
+		dth.delete(th);	
+	}
 
 	public Tipo_Habitacion validateTipo_Habitacion(Tipo_Habitacion th) {
 		
@@ -51,18 +59,14 @@ public class Login {
 		ds.add(s);
 	}
 	
-	public void updateTipoHabitacion(Tipo_Habitacion th) {
-		dth.update(th);
-	}
 
-	public ArrayList<Habitacion> buscarHabitacionesLibres(Tipo_Habitacion thab, Estadia es) {
+	public Habitacion buscarHabitacionesLibres(Tipo_Habitacion thab, Estadia es) {
 		return dh.buscar(thab, es);
 	}
 
 	public void createEstadia(int i, Estadia e, Cliente c) {
 		de.add(i, e, c);
 	}
-
 	
 	
 }

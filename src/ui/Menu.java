@@ -66,7 +66,12 @@ public class Menu {
 			reservaHabitacion(c);
 			
 			break;
+		case "7":
+			deleteTipoHabitacion();
+			
+			break;
 		default:
+			
 			break;
 		}
 	}
@@ -166,6 +171,14 @@ public class Menu {
 		ctrlLogin.updateTipoHabitacion(th);
 	}
 	
+	private void deleteTipoHabitacion() {
+		System.out.println();
+		Tipo_Habitacion th = new Tipo_Habitacion();
+		System.out.print("Ingrese id del tipo de habitacion a eliminar: "); 
+		th.setId_Tipo_Habitacion(s.nextInt());
+		ctrlLogin.deleteTipohabitacion(th);
+	}
+	
 	private Tipo_Habitacion validateTipoHabitacion(Tipo_Habitacion th) {
 		
 		return ctrlLogin.validateTipo_Habitacion(th);
@@ -203,13 +216,13 @@ public class Menu {
 	//metodo para reservar una habitacion
 	private void reservaHabitacion(Cliente c) {
 		System.out.println();
-		ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>(); //crea lista de objetos tipo Habitacion
+		Habitacion h = new Habitacion();
 		Estadia es = new Estadia();
 		Tipo_Habitacion  th = new Tipo_Habitacion();
 		System.out.print("Ingrese fecha desde: ");
 		String date;
 		Date today = Calendar.getInstance().getTime();
-		Date myDate = Calendar.getInstance().getTime(); //crea este objeto para entrar al do, luego se modifca dentro del mismo
+		Date myDate = null;
 		do { 
 			date=s.nextLine();
 			myDate = convertDate(date); //metodo para convertir la fecha al formato "yyyy-mm-dd"
@@ -219,29 +232,30 @@ public class Menu {
 		es.setFechaIngreso(sqlDate);
 		System.out.print("Ingrese fecha hasta: ");
 		String date2;
-		Date myDate2 = Calendar.getInstance().getTime();
+		Date myDate2 = null;
 		do { 
 			date2=s.nextLine();
 			myDate2 = convertDate(date2);
-		}while((myDate2.compareTo(today) < 0) && (myDate2.compareTo(myDate) <= 0)); //valida que no se ingrese una fecha anterior a hoy y que la fecha de egreso no sea menor o igual que la fecha de ingreso
+		}while((myDate2.compareTo(today) < 0) || (myDate2.compareTo(myDate) <= 0)); //valida que no se ingrese una fecha anterior a hoy 0 que la fecha de egreso no sea menor o igual que la fecha de ingreso
 		
-		java.sql.Date sqlDate2 = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
+		java.sql.Date sqlDate2 = new java.sql.Date(myDate2.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
 		es.setFechaEgreso(sqlDate2);
 		System.out.print("Ingrese tipo de habitacion que desea reservar: ");
 		th.setDenominacion(s.nextLine());
 		Tipo_Habitacion thab = validateTipoHabitacion(th);
 		if(thab!=null) {
-			habitaciones = ctrlLogin.buscarHabitacionesLibres(thab, es); //metodo para encontrar todas las habitaciones disponibles dentro de las fechas ingresadas
+			h = ctrlLogin.buscarHabitacionesLibres(thab, es); //metodo para encontrar todas las habitaciones disponibles dentro de las fechas ingresadas
+			if (h == null) {
+				System.out.print("No hay habitaciones disponibles para esas fechas");
+				return;
+			}
+		} else {
+			System.out.print("No existe ese tipo de habitacion");
+			return;
 		}
-		
-		//iteracion para asignar la primera habitacion encontrada de la lista de habitaciones
-		for (Habitacion ha : habitaciones) {
-			ctrlLogin.createEstadia(ha.getNro_Habitacion(), es, c); //le pasa los parametros del nro de habitacion, el objeto estadia y el cliente logueado
-			break;
-		}
-		
-		System.out.print("Habitacion reservada para...");
-		
+		ctrlLogin.createEstadia(h.getNro_Habitacion(), es, c); //le pasa los parametros del nro de habitacion, el objeto estadia y el cliente logueado
+		System.out.print("Habitacion reservada para el dia " + es.getFechaIngreso() + " al " + es.getFechaEgreso() + "\n"+
+				"Cliente: " + c.getApellido() + ", " + c.getNombre());
 		}
 	
 }

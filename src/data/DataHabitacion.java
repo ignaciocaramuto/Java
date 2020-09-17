@@ -42,15 +42,14 @@ public class DataHabitacion {
 		}
 	}
 
-	public ArrayList<Habitacion> buscar(Tipo_Habitacion thab, Estadia es) {
+	public Habitacion buscar(Tipo_Habitacion thab, Estadia es) {
 		Habitacion h = null;
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
-		ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select nro_Habitacion from habitacion where id_Tipo_Habitacion=? and nro_Habitacion not in (select id_Estadia from estadia where (fecha_Ingreso >=? and fecha_Egreso < ?) or (fecha_Egreso >=? and fecha_Ingreso < ?))"
+					"select nro_Habitacion from habitacion where id_Tipo_Habitacion=? and nro_Habitacion not in (select id_Estadia from estadia where (fecha_Ingreso >= ? and fecha_Egreso < ?) or (fecha_Egreso >= ? and fecha_Ingreso < ?)) LIMIT 1"
 					);
 			stmt.setInt(1, thab.getId_Tipo_Habitacion());
 			stmt.setDate(2, (Date) es.getFechaIngreso());
@@ -59,13 +58,11 @@ public class DataHabitacion {
 			stmt.setDate(5, (Date) es.getFechaEgreso());
 			keyResultSet = stmt.executeQuery();
 			
-			if(keyResultSet!=null) {
-				while(keyResultSet.next()){
-					h = new Habitacion();
-					h.setNro_Habitacion(keyResultSet.getInt("nro_Habitacion"));
-					habitaciones.add(h);
+			if(keyResultSet!=null && keyResultSet.next()) {
+				h = new Habitacion();
+				h.setNro_Habitacion(keyResultSet.getInt("nro_Habitacion"));
 				}
-			}
+					
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -79,6 +76,6 @@ public class DataHabitacion {
             }
 		
 		}
-		return habitaciones;
+		return h;
 	}
 }
