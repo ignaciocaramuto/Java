@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import data.*;
 import entities.*;
@@ -9,12 +11,14 @@ public class Login {
 	private DataTipoHabitacion dth;
 	private DataHabitacion dh;
 	private DataServicio ds;
+	private DataEstadia de;
 	
 	public Login() {
 		dc=new DataCliente();
 		dth=new DataTipoHabitacion();
 		dh=new DataHabitacion();
 		ds=new DataServicio();
+		de=new DataEstadia();
 	}
 	
 	public Cliente validateCliente(Cliente c) {
@@ -50,6 +54,15 @@ public class Login {
 	public void updateTipoHabitacion(Tipo_Habitacion th) {
 		dth.update(th);
 	}
+
+	public ArrayList<Habitacion> buscarHabitacionesLibres(Tipo_Habitacion thab, Estadia es) {
+		return dh.buscar(thab, es);
+	}
+
+	public void createEstadia(int i, Estadia e, Cliente c) {
+		de.add(i, e, c);
+	}
+
 	
 	
 }

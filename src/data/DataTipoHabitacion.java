@@ -61,7 +61,7 @@ public class DataTipoHabitacion {
 			stmt.executeUpdate();
 		
 	}  catch (SQLException e) {
-		System.out.print("Clase DataTipoHabitacion metodo update");
+		System.out.print("Clase DataTipoHabitacion metodo update ");
         e.printStackTrace();
 	} finally {
         try {
@@ -84,7 +84,7 @@ public class DataTipoHabitacion {
 					"select id_Tipo_Habitacion from tipo_habitacion where denominacion=?"
 					);
 			
-			stmt.setString(1,th.getDenominacion());
+			stmt.setString(1, th.getDenominacion());
 			keyResultSet=stmt.executeQuery();
 			if(keyResultSet!=null && keyResultSet.next()) {
 				thab = new Tipo_Habitacion();

@@ -63,15 +63,22 @@ DROP TABLE IF EXISTS `estadia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `estadia` (
   `id_Estadia` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha_Ingreso` varchar(10) NOT NULL,
-  `fecha_Egreso` varchar(45) NOT NULL,
-  `id_Cliente` int(11) NULL,
+  `fecha_Ingreso` date NOT NULL,
+  `fecha_Egreso` date NOT NULL,
+  `estado` varchar(45) NOT NULL,
+  `id_Cliente` int(11) NOT NULL,
+  `nro_Habitacion` int(11) NOT NULL,
   PRIMARY KEY (`id_Estadia`),
   CONSTRAINT id_Cliente
     FOREIGN KEY (id_Cliente)
     REFERENCES hotel.cliente (id_Cliente)
-    ON DELETE RESTRICT
-    ON UPDATE NO ACTION) 
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT nro_Habitacion
+    FOREIGN KEY (nro_Habitacion)
+    REFERENCES hotel.habitacion(nro_Habitacion)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
     ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

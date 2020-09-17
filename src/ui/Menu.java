@@ -21,7 +21,7 @@ public class Menu {
 		String command;
 		do {
 			command=getCommand();
-			executeCommand(command);
+			executeCommand(command, c);
 			System.out.println();
 			
 		}while(!command.equalsIgnoreCase("exit"));
@@ -43,7 +43,7 @@ public class Menu {
 		return c;
 	}
 	
-	private void executeCommand(String command) {
+	private void executeCommand(String command, Cliente c) {
 		switch (command) {
 		case "1":
 			System.out.println(ctrlLogin.getAll());
@@ -63,7 +63,7 @@ public class Menu {
 			
 			break;
 		case "6":
-			//reservaHabitacion();
+			reservaHabitacion(c);
 			
 			break;
 		default:
@@ -84,6 +84,7 @@ public class Menu {
 		return s.nextLine();
 	}
 	
+	//metodo para convertir la fecha al formato "yyyy-mm-dd"
 	private Date convertDate(String date) {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
 		Date myDate = null; //crea un objeto myDate de tipo Date
@@ -95,6 +96,7 @@ public class Menu {
 		return myDate;
 	}
 	
+	//metodo para registrar un cliente en la db
 	private void addCliente() {
 		System.out.println();
 		Cliente c=new Cliente();
@@ -131,6 +133,7 @@ public class Menu {
 		//ctrlLogin.setRoles(p);
 	}
 	
+	//metodo para añadir un tipo de habitacion
 	private void addTipo_Habitacion() {
 		System.out.println();
 		Tipo_Habitacion th = new Tipo_Habitacion();
@@ -145,6 +148,7 @@ public class Menu {
 		ctrlLogin.addTipohabitacion(th);
 	}
 	
+	//metodo para modificar un tipo de habitacion
 	private void updateTipoHabitacion() {
 		System.out.println();
 		Tipo_Habitacion th = new Tipo_Habitacion();
@@ -166,7 +170,8 @@ public class Menu {
 		
 		return ctrlLogin.validateTipo_Habitacion(th);
 	}  
-
+	
+	//metodo para añadir una habitacion
 	private void addHabitacion() {
 		System.out.println();
 		Tipo_Habitacion th = new Tipo_Habitacion();
@@ -182,6 +187,7 @@ public class Menu {
 		}
 	}
 	
+	//metodo para añadir un servicio
 	private void addServicio() {
 		System.out.println();
 		Servicio ser = new Servicio();
@@ -194,11 +200,12 @@ public class Menu {
 		ctrlLogin.add_Servicio(ser);
 	}
 	
-	/*private void reservaHabitacion() {
+	//metodo para reservar una habitacion
+	private void reservaHabitacion(Cliente c) {
 		System.out.println();
+		ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>(); //crea lista de objetos tipo Habitacion
 		Estadia es = new Estadia();
 		Tipo_Habitacion  th = new Tipo_Habitacion();
-		Habitacion h = new Habitacion();
 		System.out.print("Ingrese fecha desde: ");
 		String date;
 		Date today = Calendar.getInstance().getTime();
@@ -215,20 +222,26 @@ public class Menu {
 		Date myDate2 = Calendar.getInstance().getTime();
 		do { 
 			date2=s.nextLine();
-			myDate2 = convertDate(date2); //metodo para convertir la fecha al formato "yyyy-mm-dd"
+			myDate2 = convertDate(date2);
 		}while((myDate2.compareTo(today) < 0) && (myDate2.compareTo(myDate) <= 0)); //valida que no se ingrese una fecha anterior a hoy y que la fecha de egreso no sea menor o igual que la fecha de ingreso
 		
-		java.sql.Date sqlDate2 = new java.sql.Date(myDate.getTime());
+		java.sql.Date sqlDate2 = new java.sql.Date(myDate.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
 		es.setFechaEgreso(sqlDate2);
 		System.out.print("Ingrese tipo de habitacion que desea reservar: ");
 		th.setDenominacion(s.nextLine());
 		Tipo_Habitacion thab = validateTipoHabitacion(th);
 		if(thab!=null) {
-			h.setId_Tipo_Habitacion(thab.getId_Tipo_Habitacion());
-			Habitacion habi = ctrlLogin.buscarHabitaciones(h); //metodo para encontrar todas las habitaciones que tengan el id_tipo_habitacion buscado
+			habitaciones = ctrlLogin.buscarHabitacionesLibres(thab, es); //metodo para encontrar todas las habitaciones disponibles dentro de las fechas ingresadas
 		}
 		
+		//iteracion para asignar la primera habitacion encontrada de la lista de habitaciones
+		for (Habitacion ha : habitaciones) {
+			ctrlLogin.createEstadia(ha.getNro_Habitacion(), es, c); //le pasa los parametros del nro de habitacion, el objeto estadia y el cliente logueado
+			break;
+		}
+		
+		System.out.print("Habitacion reservada para...");
 		
 		}
-	*/
+	
 }
