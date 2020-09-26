@@ -94,7 +94,7 @@ public class Menu {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //se formatea la fecha a yyyy-MM-dd
 		Date myDate = null; //crea un objeto myDate de tipo Date
 		try {
-			myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada
+			myDate = formatter.parse(date); //convierte la variable date ingresada por teclado en la fecha formateada y se la asigna al a variable myDate de tipo Date
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
