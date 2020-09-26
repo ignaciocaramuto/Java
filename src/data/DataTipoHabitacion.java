@@ -10,6 +10,7 @@ import entities.*;
 
 public class DataTipoHabitacion {
 	
+	//metodo para cargar en la db un tipo de habitacion nuevo
 	public void add(Tipo_Habitacion th) {
 		
 		PreparedStatement stmt=null;
@@ -42,13 +43,95 @@ public class DataTipoHabitacion {
             	e.printStackTrace();
             }
 		}
-		
-		
-		
-		
-		
 
+	}
+	
+	//metodo pra editar un tipo de habitacion 
+	public void update(Tipo_Habitacion th) {
 		
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"update tipo_habitacion set denominacion=?, descripcion=?, capacidad_Personas=?, precio_Por_Dia=? where id_Tipo_Habitacion=?"
+					);
+			stmt.setString(1, th.getDenominacion());
+			stmt.setString(2, th.getDescripcion());
+			stmt.setInt(3, th.getCapacidad_Personas());
+			stmt.setFloat(4, th.getPrecio_Por_Dia());
+			stmt.setInt(5, th.getId_Tipo_Habitacion());
+			stmt.executeUpdate();
+		
+	}  catch (SQLException e) {
+		System.out.print("Clase DataTipoHabitacion metodo update ");
+        e.printStackTrace();
+	} finally {
+        try {
+            if(keyResultSet!=null)keyResultSet.close();
+            if(stmt!=null)stmt.close();
+            DbConnector.getInstancia().releaseConn();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+	}
+	}
+	
+	//metodo para obtener el id de tipo habitacion de una denominacion por obtenida por parametro
+	public Tipo_Habitacion validate(Tipo_Habitacion th) {
+		Tipo_Habitacion thab = null;
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select id_Tipo_Habitacion from tipo_habitacion where denominacion=?"
+					);
+			
+			stmt.setString(1, th.getDenominacion());
+			keyResultSet=stmt.executeQuery();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				thab = new Tipo_Habitacion();
+				thab.setId_Tipo_Habitacion(keyResultSet.getInt("id_Tipo_Habitacion"));
+			}
+		
+	}  catch (SQLException e) {
+        e.printStackTrace();
+	} finally {
+        try {
+            if(keyResultSet!=null)keyResultSet.close();
+            if(stmt!=null)stmt.close();
+            DbConnector.getInstancia().releaseConn();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+	}
+		return thab;
+		
+	}
+	
+	//metodo para eliminar un tipo de habitacion teniendo como parametro un id de tipo habitacion
+	public void delete(Tipo_Habitacion th) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"delete from tipo_Habitacion where id_Tipo_Habitacion=?"
+					);
+			
+			stmt.setInt(1, th.getId_Tipo_Habitacion());
+			stmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }	
