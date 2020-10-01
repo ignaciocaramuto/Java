@@ -3,6 +3,14 @@ package entities;
 public class Habitacion {
 	private int nro_Habitacion;
 	private String denominacion;
+	private int nroTipoHabitacion;//cambiar por objeto
+	
+	public int getNroTipoHabitacion(){
+		return this.nroTipoHabitacion;
+	}
+	public void setNroTipoHabitacion(int nroTipoHabitacion) {
+		this.nroTipoHabitacion=nroTipoHabitacion;
+	}
 	
 	public int getNro_Habitacion() {
 		return nro_Habitacion;

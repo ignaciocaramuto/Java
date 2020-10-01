@@ -75,7 +75,7 @@ public class Menu {
 			break;
 		case "4":
 			option=subMenu("habitacion");
-			//executeABMCHabitacion(option);
+			executeABMCHabitacion(option);
 			break;
 		case "5":
 			option=subMenu("servicio");
@@ -95,6 +95,40 @@ public class Menu {
 		System.out.println("4\t\tC "+option);
 		return(s.nextLine());
 	}
+	
+	private void executeABMCHabitacion(String option) {
+
+		switch (option) {
+		case "1":
+			addHabitacion();
+			break;
+		case "2":
+		//deleteCliente();
+			break;
+		case "3":
+		//modifyCliente();	
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		
+	}
+	
+	
+	private void addHabitacion() {
+		System.out.println();
+		Habitacion h=new Habitacion();
+		System.out.println("Ingrese la deniminacion :");
+		h.setDenominacion(s.nextLine());
+		System.out.println("Ingrese tipo de habitacion:");//agregar mostrat tipos
+		h.setNroTipoHabitacion(s.nextInt());
+		ctrlLogin.addHabitacion(h);
+	}
+	
+	
 	private void executeABMCCliente(String option) {
 		switch (option) {
 		case "1":
@@ -106,10 +140,7 @@ public class Menu {
 		case "3":
 		modifyCliente();	
 			break;
-		case "4":
-		//loqueseacCliente();
-	
-			break;
+
 		default:
 			break;
 		}

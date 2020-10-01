@@ -7,11 +7,16 @@ import entities.*;
 public class Login {
 	private DataCliente dc;
 	private DataTipoHabitacion dth;
-	
+	private DataHabitacion dh;
 	public Login() {
 		dc=new DataCliente();
 		dth=new DataTipoHabitacion();
+		dh=new DataHabitacion();
 	}
+	public void addHabitacion(Habitacion h){
+	dh.add(h);	
+	}
+	
 	public Cliente getOne(String nroDoc) {
 
 		return dc.getByDni(nroDoc);
