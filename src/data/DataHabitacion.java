@@ -8,6 +8,37 @@ import entities.Cliente;
 import entities.Habitacion;
 
 public class DataHabitacion {
+	public void deleteHabitacion(int nroHab) {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"DELETE FROM habitacion WHERE (`nro_Habitacion` = ?);",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+
+			stmt.setInt(1, nroHab);
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            System.out.println(keyResultSet);//borrar
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+		
+	}
 
 	public void add(Habitacion h) {
 		PreparedStatement stmt=null;

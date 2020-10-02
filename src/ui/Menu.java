@@ -103,7 +103,7 @@ public class Menu {
 			addHabitacion();
 			break;
 		case "2":
-		//deleteCliente();
+			deleteHabitacion();
 			break;
 		case "3":
 		//modifyCliente();	
@@ -113,6 +113,31 @@ public class Menu {
 			break;
 		}
 		
+		
+		
+	}
+	private void deleteHabitacion() {
+		try {
+			System.out.println("Ingrese el Nro de la habitacion que desea eliminar");
+			int nro=s.nextInt();
+			System.out.println("Eliminar habitacion "+nro);
+			System.out.println("1:Si");
+			System.out.println("2:No");
+			
+			String option=s.nextLine();
+			option=s.nextLine();
+			System.out.println("asdasd");
+		
+			
+			if (option.equals("1")) {
+				System.out.println("xddd");
+				ctrlLogin.deleteHabitacion(nro);
+				//System.out.println("El cliente "+c.getNombre()+" "+c.getApellido()+" fue eliminado con exito");
+			} 
+		
+			} catch (Exception e) {
+				System.out.println("No existe habitacion con ese numero\n");
+			}
 		
 		
 	}

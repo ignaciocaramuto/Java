@@ -17,6 +17,10 @@ public class Login {
 	dh.add(h);	
 	}
 	
+	public void deleteHabitacion(int nroHab) {
+		dh.deleteHabitacion(nroHab);
+	}
+	
 	public Cliente getOne(String nroDoc) {
 
 		return dc.getByDni(nroDoc);
