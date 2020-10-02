@@ -16,7 +16,13 @@ public class Login {
 	public void addHabitacion(Habitacion h){
 	dh.add(h);	
 	}
-	
+	public void modifyHabitacion(Habitacion h) {
+
+		
+	}
+	public Habitacion getOneHabitacion(int nro) {
+		return dh.getOne(nro);
+	}
 	public void deleteHabitacion(int nroHab) {
 		dh.deleteHabitacion(nroHab);
 	}

@@ -92,7 +92,7 @@ public class Menu {
 		System.out.println("1\t\tAgregar "+option);
 		System.out.println("2\t\tEliminar "+option);
 		System.out.println("3\t\tModificar "+option);
-		System.out.println("4\t\tC "+option);
+		System.out.println("4\t\tConsultar "+option);
 		return(s.nextLine());
 	}
 	
@@ -106,14 +106,50 @@ public class Menu {
 			deleteHabitacion();
 			break;
 		case "3":
-		//modifyCliente();	
+			modifyHabitacion();	
 			break;
-
+		case "4":
+			consultHabitacion();
+			break;
 		default:
 			break;
 		}
 		
 		
+		
+	}
+	private void modifyHabitacion() {
+		Habitacion h=new Habitacion();
+		System.out.println("ingrese el numero de la habitacion a modificar");
+		int nro=(s.nextInt());
+		try {
+			h=ctrlLogin.getOneHabitacion(nro);
+			System.out.println(h);
+			System.out.println("ingrese nueva denominacion");
+			h.setDenominacion(s.nextLine());
+			System.out.println("Ingrese nuevo tipo de habitacion");
+			h.setNroTipoHabitacion(s.nextInt());
+			try {
+				ctrlLogin.modifyHabitacion(h);
+				System.out.println("habitacion modificada");
+				s.next();
+			} catch (Exception e) {
+				System.out.println("Datos ingresados erroneamente");
+			}
+		} catch (Exception e) {
+			System.out.println("no existe habitacion con el numero "+nro);
+		}
+		
+	}
+	private void consultHabitacion() {
+		System.out.println("Nro habitacion: ");
+		int nro=s.nextInt();
+		try {
+			System.out.println(ctrlLogin.getOneHabitacion(nro));
+			s.next();
+		} catch (Exception e) {
+			System.out.println("no existe habitacion con el numero "+nro);
+		}
 		
 	}
 	private void deleteHabitacion() {
@@ -130,9 +166,8 @@ public class Menu {
 		
 			
 			if (option.equals("1")) {
-				System.out.println("xddd");
 				ctrlLogin.deleteHabitacion(nro);
-				//System.out.println("El cliente "+c.getNombre()+" "+c.getApellido()+" fue eliminado con exito");
+				System.out.println("habitacion eliminada");
 			} 
 		
 			} catch (Exception e) {
@@ -165,7 +200,9 @@ public class Menu {
 		case "3":
 		modifyCliente();	
 			break;
-
+		case "4":
+		consultCliente();
+		break;
 		default:
 			break;
 		}
@@ -325,7 +362,18 @@ public class Menu {
 		}
 	}
 		
+	private void consultCliente() {
+		System.out.println("Dni:");
+		String dni=s.nextLine();
+		try {
+			Cliente c=ctrlLogin.getOne(dni);
+			System.out.println(c);
+			s.nextLine();
+		} catch (Exception e) {
+			System.out.println("No se encontro cliente con el documento "+dni);
+		}
 	
+	}
 	
 	private void deleteCliente() {
 		boolean bandNoSeTrajoCliente=true;

@@ -24,6 +24,11 @@ public class Habitacion {
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
 	}
-	
+
+	public String toString() {
+		return "Habitacion [nro_Habitacion=" + nro_Habitacion + ", denominacion=" + denominacion
+				+ ", nroTipoHabitacion=" + nroTipoHabitacion + "]";
+	}
+
 	
 }

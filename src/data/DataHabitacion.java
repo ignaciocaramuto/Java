@@ -21,8 +21,6 @@ public class DataHabitacion {
 			stmt.setInt(1, nroHab);
 			stmt.executeUpdate();
 			
-			keyResultSet=stmt.getGeneratedKeys();
-            System.out.println(keyResultSet);//borrar
 
 			
 		}  catch (SQLException e) {
@@ -40,6 +38,39 @@ public class DataHabitacion {
 		
 	}
 
+	public Habitacion getOne(int nroHabitacion){
+		Habitacion h=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM hotel.habitacion where nro_Habitacion=?"
+					);
+			stmt.setInt(1, nroHabitacion);
+			
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				h=new Habitacion();
+				h.setNro_Habitacion(rs.getInt("nro_Habitacion"));
+				h.setDenominacion(rs.getString("denominacion"));
+				h.setNroTipoHabitacion(rs.getInt("id_Tipo_Habitacion"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return h;
+	}
+	
 	public void add(Habitacion h) {
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
