@@ -127,6 +127,7 @@ public class Menu {
 			System.out.println(h);
 			System.out.println("ingrese nueva denominacion");
 			h.setDenominacion(s.nextLine());
+			h.setDenominacion(s.nextLine());
 			System.out.println("Ingrese nuevo tipo de habitacion");
 			h.setNroTipoHabitacion(s.nextInt());
 			try {

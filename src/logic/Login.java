@@ -17,7 +17,8 @@ public class Login {
 	dh.add(h);	
 	}
 	public void modifyHabitacion(Habitacion h) {
-
+		System.out.println(h);
+		dh.modify(h);
 		
 	}
 	public Habitacion getOneHabitacion(int nro) {

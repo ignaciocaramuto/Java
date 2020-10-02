@@ -70,7 +70,38 @@ public class DataHabitacion {
 		
 		return h;
 	}
-	
+	public void modify(Habitacion h) {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"UPDATE `hotel`.`habitacion` SET  `denominacion` = ?, `id_Tipo_Habitacion` = ? WHERE (`nro_Habitacion` = ?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, h.getDenominacion());
+			stmt.setInt(2, h.getNroTipoHabitacion());
+			stmt.setInt(3, h.getNro_Habitacion());
+			stmt.executeUpdate();
+			
+
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+
+		
+	}
 	public void add(Habitacion h) {
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
