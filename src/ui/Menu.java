@@ -31,35 +31,10 @@ public class Menu {
 	
 	private Cliente login() {
 		Cliente c=new Cliente();
-		boolean validate = false;
-		while (!validate) {
 		
-		try {
-			
-			
-			System.out.print("Email: ");
-			c.setMail(s.nextLine());
+		System.out.print("Email: ");
+		c.setMail(s.nextLine());
 
-<<<<<<< HEAD
-			System.out.print("password: ");
-			c.setContraseña(s.nextLine());
-			
-			c=ctrlLogin.validate(c);
-			String name=c.getNombre();
-			//Para que me tire una excepcion si esta vacio(ver si hay mejor forma)
-			validate = true;
-			
-		} catch (Exception e) {
-			System.out.println("Email/contraseña incorrecto, intente de nuevo");
-			c=new Cliente();
-		}
-		}
-		return c;
-	}
-	
-	private void executeCommand(String command) {
-		String option;
-=======
 		System.out.print("password: ");
 		c.setContraseña(s.nextLine());
 		
@@ -69,33 +44,17 @@ public class Menu {
 	}
 	
 	private void executeCommand(String command, Cliente c) {
->>>>>>> nacho
 		switch (command) {
 		case "1":
 			System.out.println(ctrlLogin.getAll());
 			break;
 		case "2":
-			option=subMenu("cliente");
-			executeABMCCliente(option);
-			
+			addCliente();
 			break;
 		case "3":
-			option=subMenu("tipo de habitacion");
 			addTipo_Habitacion();
-			//executeABMCTipoHabitacion(option);
 			break;
 		case "4":
-<<<<<<< HEAD
-			option=subMenu("habitacion");
-			//executeABMCHabitacion(option);
-			break;
-		case "5":
-			option=subMenu("servicio");
-			//executeABMCServicio(option);
-			break;
-		case "6":
-			//RealizarReserva
-=======
 			 addHabitacion();
 	
 			break;
@@ -110,39 +69,13 @@ public class Menu {
 		case "7":
 			deleteTipoHabitacion();
 			
->>>>>>> nacho
 			break;
 		default:
 			
 			break;
 		}
 	}
-	private String subMenu(String option) {
-		System.out.println("1\t\tAgregar "+option);
-		System.out.println("2\t\tEliminar "+option);
-		System.out.println("3\t\tModificar "+option);
-		System.out.println("4\t\tC "+option);
-		return(s.nextLine());
-	}
-	private void executeABMCCliente(String option) {
-		switch (option) {
-		case "1":
-			addCliente();
-			break;
-		case "2":
-		//	deleteCliente();
-			break;
-		case "3":
-		//modifyCliente();	
-			break;
-		case "4":
-		//loqueseacCliente();
 	
-			break;
-		default:
-			break;
-		}
-	}
 	private String getCommand() {
 		System.out.println("Ingrese el comando según la opción que desee realizar");
 		System.out.println("1\t\tlistar todos los clientes");
@@ -155,9 +88,6 @@ public class Menu {
 		System.out.print("comando: ");
 		return s.nextLine();
 	}
-<<<<<<< HEAD
-	//de aca para abajo capaz iria mejor en logica
-=======
 	
 	//metodo para convertir la fecha al formato "yyyy-mm-dd"
 	private Date convertDate(String date) {
@@ -172,7 +102,6 @@ public class Menu {
 	}
 	
 	//metodo para registrar un cliente en la db
->>>>>>> nacho
 	private void addCliente() {
 		System.out.println();
 		Cliente c=new Cliente();
