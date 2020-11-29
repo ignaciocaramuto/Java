@@ -1,6 +1,7 @@
 package ui;
 
 import java.text.DateFormat;
+import java.util.Objects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,6 +71,10 @@ public class Menu {
 			deleteTipoHabitacion();
 			
 			break;
+		case "8":
+			checkIn(c);
+			
+			break;
 		default:
 			
 			break;
@@ -84,6 +89,7 @@ public class Menu {
 		System.out.println("4\t\tABMC Habitacion"); //Tiene que pertenecer a un tipo de habitacion
 		System.out.println("5\t\tABMC Servicio");
 		System.out.println("6\t\tRealizar reserva de habitacion");
+		System.out.println("8\t\tRealizar Cheack In");
 		System.out.println();
 		System.out.print("comando: ");
 		return s.nextLine();
@@ -219,10 +225,13 @@ public class Menu {
 		Habitacion h = new Habitacion();
 		Estadia es = new Estadia();
 		Tipo_Habitacion  th = new Tipo_Habitacion();
-		System.out.print("Ingrese fecha desde: ");
+		System.out.print("Ingrese fecha desde: (yyyy-mm-dd)");
 		String date;
 		Date today = Calendar.getInstance().getTime();
 		Date myDate = null;
+		try {
+			
+		
 		do { 
 			date=s.nextLine();
 			myDate = convertDate(date); //metodo para convertir la fecha al formato "yyyy-mm-dd"
@@ -240,6 +249,10 @@ public class Menu {
 		
 		java.sql.Date sqlDate2 = new java.sql.Date(myDate2.getTime()); //crea la variable sqlDate del tipo java.sql.Date y le asigna el valor de la variable myDate con el tiempo para poder insertarla en la db
 		es.setFechaEgreso(sqlDate2);
+		} catch (Exception e) {
+			
+			System.out.println("Fecha invalida");
+		}//valida que la fecha se ingreso correctamente
 		System.out.print("Ingrese tipo de habitacion que desea reservar: ");
 		th.setDenominacion(s.nextLine());
 		Tipo_Habitacion thab = validateTipoHabitacion(th);
@@ -256,6 +269,26 @@ public class Menu {
 		ctrlLogin.createEstadia(h.getNro_Habitacion(), es, c); //le pasa los parametros del nro de habitacion, el objeto estadia y el cliente logueado
 		System.out.print("Habitacion reservada para el dia " + es.getFechaIngreso() + " al " + es.getFechaEgreso() + "\n"+
 				"Cliente: " + c.getApellido() + ", " + c.getNombre());
+		s.nextLine();
+		
+		
 		}
+	
+	//metodo check in
+	private void checkIn(Cliente c){
+		Date today = Calendar.getInstance().getTime();
+		
+		
+		Estadia es=ctrlLogin.validarEstadia(c, today);
+		if(Objects.isNull(es)){
+			System.out.println("no tiene ninguna reserva para hoy");
+		}
+		else {
+			es.setEstado("En Curso");
+			ctrlLogin.uptadeEstadia(es);
+			System.out.println("Check In realizado correctamente");
+		}
+		
+	}
 	
 }

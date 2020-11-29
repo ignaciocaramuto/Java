@@ -47,4 +47,75 @@ public class DataEstadia {
 		
 	}
 
+
+	public Estadia getByCliAndDate(Cliente cli,Date fecha) {
+		Estadia es=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM hotel.estadia where id_Cliente=? and fecha_Ingreso<=? and fecha_Egreso>=? and estado='Reservada';"
+					);
+			stmt.setInt(1, cli.getIdCliente());
+			java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+			stmt.setDate(2, sqlDate);
+			stmt.setDate(3, sqlDate);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				es=new Estadia();
+				es.setIdEstadia(rs.getInt("id_Estadia"));
+				es.setEstado(rs.getString("estado"));
+				es.setFechaEgreso(rs.getDate("fecha_Egreso"));
+				es.setFechaIngreso(rs.getDate("fecha_Ingreso"));
+				es.setId_cliente(rs.getInt("id_Cliente"));
+				es.setNro_habitacion(rs.getInt("Nro_Habitacion"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return es;
+	}
+	
+	public void update(Estadia es) {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"UPDATE `hotel`.`estadia` SET `estado` = ? WHERE (`id_Estadia` = ?);"
+					);
+			stmt.setString(1, es.getEstado());
+
+			stmt.setInt(2, es.getIdEstadia());
+			stmt.executeUpdate();
+		
+	}  catch (SQLException e) {
+		System.out.print("Clase DataTipoHabitacion metodo update ");
+        e.printStackTrace();
+	} finally {
+        try {
+            if(keyResultSet!=null)keyResultSet.close();
+            if(stmt!=null)stmt.close();
+            DbConnector.getInstancia().releaseConn();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+	}
+		
+		
+		
+
+	}
+	
+	
+	
 }

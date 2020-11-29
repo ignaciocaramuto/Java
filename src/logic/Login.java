@@ -68,5 +68,11 @@ public class Login {
 		de.add(i, e, c);
 	}
 	
+	public Estadia validarEstadia(Cliente c,Date fecha) {
+		return de.getByCliAndDate(c,fecha);
+	}
+	public void uptadeEstadia(Estadia es) {
+		de.update(es);
+	}
 	
 }
