@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import entities.Estadia;
 import entities.Servicio;
+import entities.Tipo_Habitacion;
 
 public class DataServicio {
 	
@@ -42,4 +44,39 @@ public class DataServicio {
 		}
 	} 
 
+
+	public float CalculatePriceForEstadia(Estadia es) {
+		float precioTotal=0;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT sum(costo) as costo FROM hotel.estadia_servicio es\r\n" + 
+					"inner join servicio s on s.id_servicio=es.id_servicio\r\n" + 
+					"where es.id_estadia=?;"
+					);
+			stmt.setInt(1, es.getIdEstadia());
+			
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				
+				 precioTotal=(rs.getFloat("costo"));
+				 // precioTotal=precioTotal+(rs.getFloat("costo"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return precioTotal;
+	
+	}
 }

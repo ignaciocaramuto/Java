@@ -82,7 +82,8 @@ public class Login {
 	
 	int milisecondsByDay = 86400000;
 	int dias = (int) ((es.getFechaEgreso().getTime()-es.getFechaIngreso().getTime()) / milisecondsByDay);
-	float precioEstadia=dias*h.getPrecio_Por_Dia();
+	float precioServicios=ds.CalculatePriceForEstadia(es);
+	float precioEstadia=dias*h.getPrecio_Por_Dia()+precioServicios;
 	return precioEstadia;
 	//falta calcular el precio de los servicios
 	
