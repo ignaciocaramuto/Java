@@ -71,8 +71,22 @@ public class Login {
 	public Estadia validarEstadia(Cliente c,Date fecha) {
 		return de.getByCliAndDate(c,fecha);
 	}
+	public Estadia getEstadiaEnCurso(Cliente c) {
+		return de.getByCli(c);
+	}
 	public void uptadeEstadia(Estadia es) {
 		de.update(es);
 	}
+	public float calcularPrecioTotalDeEstadia(Estadia es) {
+	Tipo_Habitacion h=dth.getById(es.getNro_habitacion());
 	
+	int milisecondsByDay = 86400000;
+	int dias = (int) ((es.getFechaEgreso().getTime()-es.getFechaIngreso().getTime()) / milisecondsByDay);
+	float precioEstadia=dias*h.getPrecio_Por_Dia();
+	return precioEstadia;
+	//falta calcular el precio de los servicios
+	
+	
+	
+}
 }

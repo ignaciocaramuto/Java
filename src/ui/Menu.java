@@ -75,6 +75,10 @@ public class Menu {
 			checkIn(c);
 			
 			break;
+		case "9":
+			checkOut(c);
+			
+			break;
 		default:
 			
 			break;
@@ -90,6 +94,7 @@ public class Menu {
 		System.out.println("5\t\tABMC Servicio");
 		System.out.println("6\t\tRealizar reserva de habitacion");
 		System.out.println("8\t\tRealizar Cheack In");
+		System.out.println("9\t\tRealizar Cheack Out");
 		System.out.println();
 		System.out.print("comando: ");
 		return s.nextLine();
@@ -290,5 +295,23 @@ public class Menu {
 		}
 		
 	}
+	private void checkOut(Cliente c){
+	
+		
+		Estadia es=ctrlLogin.getEstadiaEnCurso(c);
+		if(Objects.isNull(es)){
+			System.out.println("no tiene ninguna estadia en curso");
+		}
+		else {
+			es.setEstado("Finalizado");
+			ctrlLogin.uptadeEstadia(es);
+			System.out.println("Check Out realizado correctamente");
+			float precioTotal=ctrlLogin.calcularPrecioTotalDeEstadia(es);
+			System.out.println("el precio total de la estadia es de "+precioTotal);
+		}
+		s.nextLine();
+		
+	}
+	
 	
 }

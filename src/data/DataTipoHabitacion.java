@@ -134,5 +134,45 @@ public class DataTipoHabitacion {
 		}
 		
 	}
+//obtener tipo por id	
+public Tipo_Habitacion getById(int id) {
+		Tipo_Habitacion th=null;
+			PreparedStatement stmt=null;
+			ResultSet rs=null;
+			try {
+				stmt=DbConnector.getInstancia().getConn().prepareStatement(
+						"SELECT * FROM estadia e \r\n" + 
+						"inner join habitacion h on e.nro_Habitacion=h.nro_Habitacion\r\n" + 
+						"inner join tipo_habitacion th on th.id_Tipo_Habitacion=h.id_Tipo_Habitacion where h.nro_Habitacion=?;"
+						);
+				stmt.setInt(1, id);
+				
+				rs=stmt.executeQuery();
+				if(rs!=null && rs.next()) {
+					th=new Tipo_Habitacion();
+					th.setCapacidad_Personas(rs.getInt("th.capacidad_Personas"));
+					th.setDenominacion(rs.getString("th.denominacion"));
+					th.setDescripcion(rs.getString("th.descripcion"));
+					th.setId_Tipo_Habitacion(rs.getInt("th.id_Tipo_Habitacion"));
+					th.setPrecio_Por_Dia(rs.getFloat("th.precio_Por_Dia"));
+				
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return th;
+		
+	}
+
 }	
 
