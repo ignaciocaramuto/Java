@@ -77,6 +77,12 @@ public class Login {
 	public void uptadeEstadia(Estadia es) {
 		de.update(es);
 	}
+	//si devuelve false es que ya tenia ese servicio para esa estadia
+	public boolean requestService(String servicio,Estadia es) {
+		Servicio s=ds.getByDenominacion(servicio);
+		return de.addService(s,es);
+	}
+	
 	public float calcularPrecioTotalDeEstadia(Estadia es) {
 	Tipo_Habitacion h=dth.getById(es.getNro_habitacion());
 	

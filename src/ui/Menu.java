@@ -79,6 +79,10 @@ public class Menu {
 			checkOut(c);
 			
 			break;
+		case "10":
+			pedirServicio(c);
+			
+			break;
 		default:
 			
 			break;
@@ -95,6 +99,7 @@ public class Menu {
 		System.out.println("6\t\tRealizar reserva de habitacion");
 		System.out.println("8\t\tRealizar Cheack In");
 		System.out.println("9\t\tRealizar Cheack Out");
+		System.out.println("10\t\tSolicitar servicio ");
 		System.out.println();
 		System.out.print("comando: ");
 		return s.nextLine();
@@ -312,6 +317,30 @@ public class Menu {
 		s.nextLine();
 		
 	}
-	
+	private void pedirServicio(Cliente c) {
+		Estadia es=ctrlLogin.getEstadiaEnCurso(c);
+		if(Objects.isNull(es)){
+			System.out.println("no tiene ninguna estadia en curso");
+		}
+		else {
+			System.out.println("Ingrese el servicio que desea pedir");
+			String servicioSolicitado=s.nextLine();
+			try {
+				if(ctrlLogin.requestService(servicioSolicitado,es)) {
+					
+				
+				System.out.println("Sericio \""+servicioSolicitado+"\" se agrego a la estadia");
+				}
+				else {
+					System.out.println("Ya pidio este servicio");
+				}
+			} 
+			
+			catch (Exception e) {
+				System.out.println("No se encontro el servicio");
+			}
+		}
+		s.nextLine();
+	}
 	
 }

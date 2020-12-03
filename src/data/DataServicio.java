@@ -4,11 +4,46 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import entities.Cliente;
 import entities.Estadia;
 import entities.Servicio;
 import entities.Tipo_Habitacion;
 
 public class DataServicio {
+	
+	
+	public Servicio getByDenominacion(String denominacion) {
+		Servicio c=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM hotel.servicio where denominacion=?;"
+					);
+			stmt.setString(1,denominacion);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				c=new Servicio();
+				c.setIdServicio(rs.getInt("id_Servicio"));
+				c.setDescripcion(rs.getString("descripcion"));
+				c.setDenominacion(rs.getString("denominacion"));
+				c.setCosto(rs.getFloat("costo"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return c;
+	}
 	
 	public void add(Servicio s) {
 		

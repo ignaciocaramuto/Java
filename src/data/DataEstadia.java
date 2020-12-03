@@ -10,6 +10,8 @@ import entities.Cliente;
 import entities.Estadia;
 
 public class DataEstadia {
+	
+
 
 	public void add(int i, Estadia es, Cliente c) {
 		PreparedStatement stmt=null;
@@ -154,5 +156,44 @@ public class DataEstadia {
 	}
 	
 	
-	
+	public boolean addService(entities.Servicio c,Estadia es) {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		boolean band=true;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"INSERT INTO `hotel`.`estadia_servicio` (`id_estadia`, `id_servicio`) VALUES (?, ?);",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+
+			
+			stmt.setInt(1, es.getIdEstadia());
+			stmt.setInt(2, c.getIdServicio());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+              
+            }
+
+			
+		}  
+		catch(java.sql.SQLIntegrityConstraintViolationException ex) {
+			
+			band=false;
+		}
+		catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	return band;	
+	}
 }
