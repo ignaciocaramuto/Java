@@ -48,6 +48,7 @@ public class Menu {
 		switch (command) {
 		case "1":
 			System.out.println(ctrlLogin.getAll());
+			s.nextLine();
 			break;
 		case "2":
 			addCliente();

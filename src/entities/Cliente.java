@@ -97,8 +97,8 @@ public class Cliente {
 	}
 	
 	public String toString() {
-		return "\nPersona [id=" + idCliente + ", tipoDoc=" + tipoDoc + ", nroDoc=" + numDoc + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", email=" + mail + ", tel=" + telefono + "]";
+		return "id=" + idCliente + ", tipoDoc:" + tipoDoc + ", nroDoc:" + numDoc + ", nombre:" + nombre + ", apellido:" + apellido
+				+ ", email:" + mail + ", telefono:" + telefono + "\n";
 	}
 
 

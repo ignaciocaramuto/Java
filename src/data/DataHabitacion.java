@@ -47,7 +47,7 @@ public class DataHabitacion {
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
 		
-		try {
+		try {//aca hay un bug
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select nro_Habitacion from habitacion where id_Tipo_Habitacion=? and nro_Habitacion not in (select id_Estadia from estadia where (fecha_Ingreso >= ? and fecha_Egreso < ?) or (fecha_Egreso >= ? and fecha_Ingreso < ?)) LIMIT 1"
 					);
